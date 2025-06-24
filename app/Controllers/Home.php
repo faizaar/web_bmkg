@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Model_TekananUdara;
 use App\Models\Model_temperatur;
 use App\Models\ModelGempa;
+use App\Models\ModelPetir;
 use App\Models\ModelTerbitTenggelam;
 use App\Models\ModelPengamatanHilal;
 use App\Models\ModelGambarHilal;
@@ -86,12 +87,16 @@ class Home extends BaseController
         $data['kelembaban_07'] = $today['kelembaban_07'] ?? '-';
         $data['kecepatan_rata2'] = $today['kecepatan_rata2'] ?? '-';
         $data['arah_terbanyak'] = $today['arah_terbanyak'] ?? '-';
+        $data['lastUpdateTekanan'] = $today['tanggal'] ?? null;
 
         // Tambahkan ini:
         $temperaturModel = new model_temperatur();
         $temperaturToday = $temperaturModel->getTodaytemperature();
         $data['temperatur'] = $temperaturToday['temperatur_07'] ?? '-';
         $data['curah_hujan'] = $temperaturToday['curah_hujan_07'] ?? '-';
+        $data['lastUpdateTemperatur'] = $temperaturToday['tgl'] ?? null;
+        $data['lastUpdateHujan'] = $temperaturToday['tanggal'] ?? null;
+
 
         //Terbit Tenggelam
         $modelTerbit = new ModelTerbitTenggelam();
@@ -101,11 +106,17 @@ class Home extends BaseController
         $data['lastUpdate'] = $latest['tanggal'] ?? null;
 
         //Gempa
+        // helper('text');
         $modelGempa = new ModelGempa();
         $data['dataGempa'] = $modelGempa->getLatestGempaFiltered();
         // Ambil tanggal terbaru untuk ditampilkan
         $latest = $modelGempa->select('tanggal')->orderBy('tanggal', 'DESC')->first();
         $data['lastUpdateGempa'] = $latest['tanggal'] ?? null;
+
+        // Petir
+        $petirModel = new ModelPetir();
+        $latestPetir = $petirModel->select('tanggal')->orderBy('tanggal', 'DESC')->first();
+        $data['lastUpdatePetir'] = $latestPetir['tanggal'] ?? null;
 
         helper('text');
         $model = new ModelBeritaKegiatan();
