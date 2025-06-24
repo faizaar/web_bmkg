@@ -17,6 +17,17 @@ class Dashboard extends BaseController
 {
     public function index()
     {
+        $modelGempa = new ModelGempa();
+
+    // Ambil data gempa terbaru
+    $latestGempa = $modelGempa
+        ->orderBy('tanggal', 'DESC')
+        ->orderBy('jam', 'DESC')
+        ->findAll(1);
+
+    // Ambil tanggal terakhir dari data gempa
+    $lastUpdateGempa = !empty($latestGempa) ? $latestGempa[0]['tanggal'] : null;
+
         $data = [
             'jml_tekananudara'      => (new Model_TekananUdara())->countAll(),
             'jml_temperatur'        => (new Model_temperatur())->countAll(),
@@ -28,7 +39,11 @@ class Dashboard extends BaseController
             'jml_petir'             => (new ModelPetir())->countAll(),
             'jml_terbit'            => (new ModelTerbitTenggelam())->countAll(),
             'jml_pengamatan'        => (new PengamatanModel())->countAll(),
+         // Ini tambahan:
+        'dataGempa'             => $latestGempa,
+        'lastUpdateGempa'       => $lastUpdateGempa,
         ];
+        
         echo view('admin/admin_header', $data);
         echo view('admin/admin_nav');
         echo view('admin/dashboard/admin_dashboard', $data);
