@@ -103,6 +103,10 @@
             font-size: 1.8rem;
         }
     }
+    .card p{
+        white-space: normal !important;
+        word-break: break-word;
+    }
 </style>
 </head>
 
@@ -139,48 +143,56 @@
                                         <i class="fas fa-tachometer-alt fa-lg text-info"></i>
                                         <!-- Ikon tekanan udara -->
                                     </div>
-                                    <h5 class="fw-bold mb-1"><?= esc($tekanan)?> hPa</h5>
+                                    <h5 class="fw-bold mb-1"><?= esc($tekanan) ?> hPa</h5>
                                     <p class="text-secondary small mb-0">Tekanan Udara</p>
+
+                                    <?php if (!empty($lastUpdateTekanan)): ?>
+                                    <p class="text-secondary small mb-0" style="font-style: italic;">
+                                    <?= date('d M Y', strtotime($lastUpdateTekanan)) ?>
+                                    </p>
+                                    <?php endif; ?>
+
                                 </div>
+
+                            <!-- Kartu 3: Curah Hujan -->
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
                                 <div class="card shadow-sm border-0 rounded-4 text-center p-3">
                                     <div class="icon-circle bg-light-blue mb-3 mx-auto">
                                         <i class="fas fa-cloud-rain fa-lg text-primary"></i>
                                     </div>
-                                    <h5 class="fw-bold mb-1"><?= esc($curah_hujan)?> mm</h5>
+                                    <h5 class="fw-bold mb-1"><?= esc($curah_hujan) ?> mm</h5>
                                     <p class="text-secondary small mb-0">Curah Hujan</p>
+                                    <?php if (!empty($lastUpdateHujan)): ?>
+                                    <p class="text-secondary small mb-0" style="font-style: italic;">
+                                     <?= date('d M Y', strtotime($lastUpdateHujan)) ?>
+                                    </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                            <!-- Kartu 4: Fase Hilal -->
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <div class="card shadow-sm border-0 rounded-4 text-center p-3">
-                                    <div class="icon-circle bg-light-green mb-3 mx-auto">
-                                        <i class="fas fa-moon fa-lg text-success"></i>
-                                    </div>
-                                    <h5 class="fw-bold mb-1" id="faseHilal">Bulan Sabit</h5>
-                                    <p class="text-secondary small mb-0">Fase Hilal Saat Ini</p>
-                                </div>
-                            </div>
-                            <!-- Kartu 4: Gempa -->
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <?php foreach ($dataGempa as $item): ?>
-                                    <div class="card shadow-sm border-0 rounded-4 text-center p-3">
-                                        <div class="icon-circle bg-light-red mb-3 mx-auto">
-                                            <i class="fas fa-wave-square fa-lg text-danger"></i> <!-- Ikon gempa -->
-                                        </div>
-                                        <h5 class="fw-bold mb-1"><?= esc($item['Magnitudo']) ?> SR</h5>
-                                        <p class="text-secondary small mb-0">Gempa</p>
-                                        <?php if (!empty($lastUpdateGempa)): ?>
-                                            <p class="text-secondary small mb-0" style="font-style: italic;">
-                                                <?= date('d M Y', strtotime($lastUpdateGempa)) ?>
-                                            </p>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
+                           
+                 <!-- KARTU GEMPA (3) -->
+                 <div class="col-6 col-md-3 col-lg-2 d-flex align-items-stretch">
+                 <?php foreach ($dataGempa as $item): ?>
+                    <div class="card shadow-sm border-0 rounded-4 text-center p-3 h-100 w-100" style="max-width: 250px; margin: 0 auto;">
+                     <div class="icon-circle bg-light-red mb-3 mx-auto">
+                      <i class="fas fa-wave-square fa-lg text-danger"></i>
+                 </div>
+            <h5 class="fw-bold mb-1"><?= esc($item['Magnitudo']) ?> SR</h5>
+            <!-- <p class="text-secondary small mb-0">Gempa</p> -->
+            <p class="text-secondary small mb-0 text-wrap" style="font-size: 12px; white-space: normal;">
+                <?= esc($item['Keterangan']) ?>
+            </p>
+            <?php if (!empty($lastUpdateGempa)): ?>
+                <p class="text-secondary small mb-0 mt-1" style="font-style: italic;">
+                    <?= date('d M Y', strtotime($lastUpdateGempa)) ?>
+                     </p>
+                <?php endif; ?>
+                 </div>
+            <?php endforeach; ?>
+         </div>
+
+         
                     <!-- Slide 2 -->
                     <div class="carousel-item">
                         <div class="container">
@@ -337,6 +349,4 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
 </body>
