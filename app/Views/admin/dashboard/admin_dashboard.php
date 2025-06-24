@@ -69,7 +69,7 @@
             ['label' => 'Temperatur', 'jumlah' => $jml_temperatur, 'color' => 'danger', 'icon' => 'fa-temperature-high'],
             ['label' => 'Berita', 'jumlah' => $jml_berita, 'color' => 'info', 'icon' => 'fa-newspaper'],
             ['label' => 'Gambar Hilal', 'jumlah' => $jml_gambarhilal, 'color' => 'warning', 'icon' => 'fa-moon'],
-            ['label' => 'Gempa', 'jumlah' => $jml_gempa, 'color' => 'secondary', 'icon' => 'fa-wave-square'],
+            // ['label' => 'Gempa', 'jumlah' => $jml_gempa, 'color' => 'secondary', 'icon' => 'fa-wave-square'],
             ['label' => 'Login', 'jumlah' => $jml_login, 'color' => 'success', 'icon' => 'fa-user-lock'],
             ['label' => 'Pengamatan Hilal', 'jumlah' => $jml_pengamatanhilal, 'color' => 'dark', 'icon' => 'fa-binoculars'],
             ['label' => 'Petir', 'jumlah' => $jml_petir, 'color' => 'orange', 'icon' => 'fa-bolt'],
