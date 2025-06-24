@@ -47,12 +47,13 @@ $routes->post('admin/pengajuan_surat/ubah_status_ajax', 'PengajuanSurat::ubah_st
 // Grup untuk admin - Gempa harus login
 $routes->group('Gempa', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Gempa::view_gempa');                      // Tampilkan semua data gempa
-    $routes->get('form', 'Gempa::form');                         // Form tambah data gempa
+    $routes->get('gempa', 'Gempa::form');                         // Form tambah data gempa
     $routes->get('edit/(:num)', 'Gempa::form_update/$1');       // Form update data
     $routes->post('save', 'Gempa::save');                        // Simpan data baru
     $routes->post('update/(:num)', 'Gempa::update/$1');          // Update data
     $routes->get('delete/(:num)', 'Gempa::delete/$1');           // Hapus data
     $routes->post('upload', 'Gempa::upload');                    // Upload data dari file
+    $routes->get('sync_from_api', 'Gempa::sync_from_api'); // ✅ route baru
 });
 
 // Grup untuk admin - Hilal harus login
